@@ -13,7 +13,14 @@ const FilterBar: React.FC<FilterBarProps> = ({ onFilterChange }) => {
     const [studyDay, setStudyDay] = useState('all');
 
     const uniqueMajors = [...new Set(Object.values(graduatePrograms).map(program => program.major))];
-    const uniquePlans = [...new Set(Object.values(graduatePrograms).flatMap(p => p.plans.map(plan => plan.plan_name)))];
+    const uniquePlans = [...new Set(Object.values(graduatePrograms).flatMap(p => p.plans.map(plan => plan.plan_name)))].sort((a, b) => {
+        // Extract numbers from plan names for sorting
+        const getNumber = (str: string) => {
+            const match = str.match(/\d+(\.\d+)?/);
+            return match ? parseFloat(match[0]) : 999;
+        };
+        return getNumber(a) - getNumber(b);
+    });
     const uniqueStudyDays = [...new Set(Object.values(graduatePrograms).flatMap(p => p.plans.map(plan => plan.date_study)))];
 
     const handleFilterChange = (newDegree?: string, newMajor?: string, newSearch?: string, newPlan?: string, newStudyDay?: string) => {

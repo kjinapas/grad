@@ -39,7 +39,7 @@ const Chatbot: React.FC = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('https://n8n.scmc.cmu.ac.th/webhook-test/grad', {
+            const response = await fetch('https://n8n.scmc.cmu.ac.th/webhook/grad', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
